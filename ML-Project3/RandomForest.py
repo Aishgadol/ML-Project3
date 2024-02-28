@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from collections import Counter
+from DecisionTree import DecisionTree
 import matplotlib.pyplot as plt
 import sys
 from tqdm import tqdm
@@ -35,13 +36,17 @@ class RandomForest:
 	def sample_data(self, data):
 		# This method samples len(data) with repitition from data.
 		# You can use numpy to select random incidies.
-		indices=[np.random.randint(0,len(data)) for i in range(len(data))]
+		return np.random.choice(len(data), size=len(data), replace=True)
 
 	def fit(self, data):
 		self.forest = []
 		for _ in range(self.n_estimators):
 			samp_data = data.iloc[self.sample_data(data)]
 			# Implement here
+			DTmodel=DecisionTree()
+			samp_data=self.select_features(samp_data)
+			DTmodel.fit(samp_data)
+			self.forest.append(DTmodel)
 
 	def _predict(self, X):
 		# Predict the labels for new data points
