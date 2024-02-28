@@ -152,7 +152,7 @@ decision_tree_model.plot()
 
 train, test = train_test_split(data, test_size=0.2, random_state=42, stratify=data['class'])
 
-print(f'100 thresholds\n')
+print(f'100 thresholds')
 for criterion in ["entropy", "gini"]:
   print(f"------------ {criterion} ------------")
   decision_tree_model=DecisionTree(criterion)
