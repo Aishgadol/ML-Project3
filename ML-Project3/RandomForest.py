@@ -181,7 +181,7 @@ class RandomForest:
 		self.forest = []
 		for _ in range(self.n_estimators):
 			self.tree_count+=1
-			print(f'creating tree number{self.tree_count}')
+			#print(f'creating tree number{self.tree_count}')
 			samp_data = data.iloc[self.sample_data(data)]
 			# Implement here
 			DTmodel=DecisionTree(criterion=self.criterion)
@@ -204,18 +204,21 @@ class RandomForest:
 		return (pred == X.iloc[:,-1]).sum() / len(X)
 
 dict1 = {'entropy': [], 'gini': []}
-num_estimators = 11
+num_estimators = 10
 criterions = ['entropy', 'gini']
-for crt in criterions:
-  forest = RandomForest(n_estimators=num_estimators, method='simple', criterion=crt)
-  forest.fit(train)
+for i in range(5):
+	dict1 = {'entropy': [], 'gini': []}
+	for crt in criterions:
 
-  acc = forest.score(train)
-  dict1[crt].append(acc)
+		forest = RandomForest(n_estimators=num_estimators, method='simple', criterion=crt)
+		forest.fit(train)
 
-  acc = forest.score(test)
-  dict1[crt].append(acc)
+		acc = forest.score(train)
+		dict1[crt].append(acc)
 
-print(f'using {num_estimators} estimators')
-df = pd.DataFrame(dict1, columns=criterions, index=['train', 'test'])
-print(df)
+		acc = forest.score(test)
+		dict1[crt].append(acc)
+
+	print(f'using {num_estimators} estimators:')
+	df = pd.DataFrame(dict1, columns=criterions, index=['train', 'test'])
+	print(df)
