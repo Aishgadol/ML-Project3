@@ -51,7 +51,7 @@ class DecisionTree:
 		value_indices = np.linspace(0, len(data)-1, num=102,endpoint=True,dtype=int)[1:-1]  # Exclude the max and min values
 		values=data_at_feature_numpy_sorted[value_indices]
 		'''
-		values=np.linspace(np.min(data_at_feature_numpy_sorted),max(data_at_feature_numpy_sorted),num=52,endpoint=True)[1:-1]
+		values=np.linspace(np.min(data_at_feature_numpy_sorted),max(data_at_feature_numpy_sorted),num=102,endpoint=True)[1:-1]
 		best_treshold = None
 		best_gain = 0
 		for value in values:
@@ -181,7 +181,7 @@ class RandomForest:
 		for _ in range(self.n_estimators):
 			samp_data = data.iloc[self.sample_data(data)]
 			# Implement here
-			DTmodel=DecisionTree()
+			DTmodel=DecisionTree(criterion=self.criterion)
 			samp_data=self.select_features(samp_data)
 			DTmodel.fit(samp_data)
 			self.forest.append(DTmodel)
@@ -199,3 +199,20 @@ class RandomForest:
 	def score(self, X):
 		pred = self._predict(X)
 		return (pred == X.iloc[:,-1]).sum() / len(X)
+
+dict1 = {'entropy': [], 'gini': []}
+num_estimators = 1
+criterions = ['entropy', 'gini']
+for crt in criterions:
+  forest = RandomForest(n_estimators=num_estimators, method='simple', criterion=crt)
+  forest.fit(train)
+
+  acc = forest.score(train)
+  dict1[crt].append(acc)
+
+  acc = forest.score(test)
+  dict1[crt].append(acc)
+
+print(f'using {num_estimators} estimators')
+df = pd.DataFrame(dict1, columns=criterions, index=['train', 'test'])
+print(df)
