@@ -163,5 +163,5 @@ for criterion in ["entropy", "gini"]:
   preds=decision_tree_model.predict(test.drop('class',axis=1))
   acc=sum(predict==label for predict,label in zip(preds,test['class']))/len(test)
   print(f'Test accuracy is {acc}')
-  print()
+
 
