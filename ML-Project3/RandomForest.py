@@ -156,6 +156,7 @@ class RandomForest:
 		self.criterion = criterion
 		self.n_estimators = n_estimators
 		self.method = method
+		self.tree_count=0
 
 	def select_features(self, data):
 		np.random.seed(40+len(self.forest))
@@ -179,6 +180,8 @@ class RandomForest:
 	def fit(self, data):
 		self.forest = []
 		for _ in range(self.n_estimators):
+			self.tree_count+=1
+			print(f'creating tree number{self.tree_count}')
 			samp_data = data.iloc[self.sample_data(data)]
 			# Implement here
 			DTmodel=DecisionTree(criterion=self.criterion)
@@ -201,7 +204,7 @@ class RandomForest:
 		return (pred == X.iloc[:,-1]).sum() / len(X)
 
 dict1 = {'entropy': [], 'gini': []}
-num_estimators = 1
+num_estimators = 11
 criterions = ['entropy', 'gini']
 for crt in criterions:
   forest = RandomForest(n_estimators=num_estimators, method='simple', criterion=crt)
