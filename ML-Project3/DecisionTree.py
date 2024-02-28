@@ -48,7 +48,7 @@ class DecisionTree:
 		value_indices = np.linspace(0, len(data)-1, num=102,endpoint=True,dtype=int)[1:-1]  # Exclude the max and min values
 		values=data_at_feature_numpy_sorted[value_indices]
 		'''
-		values=np.linspace(np.min(data_at_feature_numpy_sorted),max(data_at_feature_numpy_sorted),num=12,endpoint=True)[1:-1]
+		values=np.linspace(np.min(data_at_feature_numpy_sorted),max(data_at_feature_numpy_sorted),num=102,endpoint=True)[1:-1]
 		best_treshold = None
 		best_gain = 0
 		for value in values:
