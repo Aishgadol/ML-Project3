@@ -204,9 +204,8 @@ class RandomForest:
 		return (pred == X.iloc[:,-1]).sum() / len(X)
 
 dict1 = {'entropy': [], 'gini': []}
-num_estimators = 10
 criterions = ['entropy', 'gini']
-for i in range(5):
+for num_estimators in range(1,5):
 	dict1 = {'entropy': [], 'gini': []}
 	for crt in criterions:
 
@@ -222,3 +221,11 @@ for i in range(5):
 	print(f'using {num_estimators} estimators:')
 	df = pd.DataFrame(dict1, columns=criterions, index=['train', 'test'])
 	print(df)
+
+def KFold2(data, model, cv=5):
+	kf = KFold(n_splits=cv)
+	scores = []
+
+	for train_index, test_index in kf.split(data):
+
+	return np.mean(scores)
