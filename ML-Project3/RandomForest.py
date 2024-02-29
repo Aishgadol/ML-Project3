@@ -51,7 +51,7 @@ class DecisionTree:
 		value_indices = np.linspace(0, len(data)-1, num=102,endpoint=True,dtype=int)[1:-1]  # Exclude the max and min values
 		values=data_at_feature_numpy_sorted[value_indices]
 		'''
-		values=np.linspace(np.min(data_at_feature_numpy_sorted),max(data_at_feature_numpy_sorted),num=52,endpoint=True)[1:-1]
+		values=np.linspace(np.min(data_at_feature_numpy_sorted),max(data_at_feature_numpy_sorted),num=102,endpoint=True)[1:-1]
 		best_treshold = None
 		best_gain = 0
 		for value in values:
@@ -265,7 +265,7 @@ for i in tqdm(range(3,11)):
 
 plt.plot(range(3,11), np.array(correct_entropy), label='entropy')
 plt.plot(range(3,11), np.array(correct_gini), label='gini')
-plt.title(f'entropy vs gini, best num estimators: {best_num_estimators}')
+plt.title(f'entropy vs gini, best num estimators: {best_num_estimators}, 100 thresholds')
 plt.legend(loc='upper left')
 plt.xlabel('trees num')
 plt.ylabel('avg accuracy')
