@@ -265,7 +265,7 @@ for i in tqdm(range(3,13)):
 
 plt.plot(range(3,13), np.array(correct_entropy), label='entropy')
 plt.plot(range(3,13), np.array(correct_gini), label='gini')
-
+plt.title(f'entropy vs gini, best num estimators: {best_num_estimators}')
 plt.legend(loc='upper left')
 plt.xlabel('trees num')
 plt.ylabel('avg accuracy')
