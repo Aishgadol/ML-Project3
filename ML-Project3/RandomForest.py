@@ -202,7 +202,7 @@ class RandomForest:
 	def score(self, X):
 		pred = self._predict(X)
 		return (pred == X.iloc[:,-1]).sum() / len(X)
-
+'''
 dict1 = {'entropy': [], 'gini': []}
 criterions = ['entropy', 'gini']
 for num_estimators in range(1,5):
@@ -221,6 +221,7 @@ for num_estimators in range(1,5):
 	print(f'using {num_estimators} estimators:')
 	df = pd.DataFrame(dict1, columns=criterions, index=['train', 'test'])
 	print(df)
+'''
 '''
 def getAccuracyUsingRandomForest(train,test):
     accs={'entropy': [], 'gini': []}
@@ -244,3 +245,28 @@ def KFold2(data, model, cv=5):
         model.fit(this_train)
         scores.append(model.score(this_test))
     return np.mean(scores)
+
+correct_entropy = []
+correct_gini = []
+best_num_estimators=0
+best_gini_acc=0
+best_entropy_acc=0
+for i in tqdm(range(3,13)):
+	forest = RandomForest(n_estimators=i, method='simple', criterion='gini')
+	current_gini_acc=KFold2(data=train, model=forest, cv=5)
+	correct_gini.append(current_gini_acc)
+	forest = RandomForest(n_estimators=i, method='simple', criterion='entropy')
+	current_entropy_acc=KFold2(data=train, model=forest, cv=5)
+	correct_entropy.append(current_entropy_acc)
+	if (best_gini_acc < current_gini_acc and best_entropy_acc<current_entropy_acc):
+		best_entropy_acc=current_entropy_acc
+		best_gini_acc=current_gini_acc
+		best_num_estimators=i
+
+plt.plot(range(3,13), np.array(correct_entropy), label='entropy')
+plt.plot(range(3,13), np.array(correct_gini), label='gini')
+
+plt.legend(loc='upper left')
+plt.xlabel('trees num')
+plt.ylabel('avg accuracy')
+plt.show()
