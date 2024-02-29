@@ -221,11 +221,26 @@ for num_estimators in range(1,5):
 	print(f'using {num_estimators} estimators:')
 	df = pd.DataFrame(dict1, columns=criterions, index=['train', 'test'])
 	print(df)
-
+'''
+def getAccuracyUsingRandomForest(train,test):
+    accs={'entropy': [], 'gini': []}
+    criterions = ['entropy', 'gini']
+    for crt in criterions:
+        forest = RandomForest(n_estimators=3, method='simple', criterion=crt)
+        forest.fit(train)
+        acc = forest.score(train)
+        accs[crt].append(acc)
+        acc = forest.score(test)
+        accs[crt].append(acc)
+    return accs
+'''
 def KFold2(data, model, cv=5):
-	kf = KFold(n_splits=cv)
-	scores = []
+    kf = KFold(n_splits=cv)
+    scores = []
 
-	for train_index, test_index in kf.split(data):
-
-	return np.mean(scores)
+    for train_index, test_index in kf.split(data):
+        this_train = data.iloc[train_index]
+        this_test = data.iloc[test_index]
+        model.fit(this_train)
+        scores.append(model.score(this_test))
+    return np.mean(scores)
