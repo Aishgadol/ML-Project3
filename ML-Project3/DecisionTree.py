@@ -4,7 +4,6 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 data = pd.read_csv('banknote_authentication.csv')
-#print(data.head(3))
 # Define the ID3 decision tree class
 class DecisionTree:
 	def __init__(self,criterion='entropy'):
