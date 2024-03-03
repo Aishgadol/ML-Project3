@@ -154,7 +154,7 @@ train, test = train_test_split(data, test_size=0.2, random_state=42, stratify=da
 
 print(f'100 thresholds')
 for criterion in ["entropy", "gini"]:
-  print(f"------------ {criterion} ------------")
+  print(f"----------- {criterion} -----------")
   decision_tree_model=DecisionTree(criterion)
   decision_tree_model.fit(train)
   preds=decision_tree_model.predict(train.drop('class',axis=1))
