@@ -222,6 +222,7 @@ for num_estimators in range(1,5):
 	df = pd.DataFrame(dict1, columns=criterions, index=['train', 'test'])
 	print(df)
 '''
+
 '''
 def getAccuracyUsingRandomForest(train,test):
     accs={'entropy': [], 'gini': []}
