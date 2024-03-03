@@ -33,6 +33,7 @@ class DecisionTree:
 		for label in unique_labels:
 			label_prob=label_counts[label]/num_samples
 			gini -= np.square(label_prob)
+
 		return gini
 
 	def calculate_information_gain(self, data, feature):
