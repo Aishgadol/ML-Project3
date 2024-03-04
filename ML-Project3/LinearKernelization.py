@@ -14,6 +14,14 @@ y_train = data_dict['y_train']
 x_test = data_dict['x_test']
 y_test = data_dict['y_test']
 
+#Look at the plot of the training data.
+'''
+plt.scatter(x_train, y_train, color='blue', s=2)
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Generated Train')
+plt.show()
+'''
 
 def kernel(xi, xj, sigma):
   return np.exp((-(np.squre(np.norm(xi-xj))))/(2*np.squre(sigma)))
