@@ -43,3 +43,4 @@ def predict(alphas, train, test, sigma):
     for sample_index,sample in enumerate(train):
         summy+=alphas[sample_index]*kernel(sample,test,sigma)
     return summy
+
