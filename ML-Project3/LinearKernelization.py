@@ -24,7 +24,7 @@ plt.show()
 '''
 
 def kernel(xi, xj, sigma):
-    return np.exp((-(np.squre(np.norm(xi-xj))))/(2*np.squre(sigma)))
+    return np.exp((-(np.square(np.linalg.norm(xi-xj))))/(2*np.square(sigma)))
 
 def prepear_kernel_matrix(train, sigma):
     K = np.zeros((len(train), len(train)))
@@ -35,7 +35,7 @@ def prepear_kernel_matrix(train, sigma):
 
 def get_alphas(kernel, target, lamda=0.01):
     identity=np.identity(len(kernel))
-    inversed=np.linalg.inv(kernal+lamda*identity)
+    inversed=np.linalg.inv(kernel+lamda*identity)
     return (inversed @ target)
 
 def predict(alphas, train, test, sigma):
