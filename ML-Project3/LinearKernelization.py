@@ -43,7 +43,7 @@ def predict(alphas, train, test, sigma):
     for sample_index,sample in enumerate(train):
         summy+=alphas[sample_index]*kernel(sample,test,sigma)
     return summy
-'''
+
 #using sigma=4, plotting line:
 xx = np.arange(0, 100, 0.1).reshape((1000,1))
 yy = []
@@ -57,7 +57,7 @@ plt.scatter(x_train, y_train, color='blue', s=2, label='train')
 plt.scatter(x_test, y_test, color='red', s=2, label='test')
 plt.plot(xx, yy, color='black')
 plt.show()
-'''
+
 #printing MSE of train and test given sigma=4
 mse = 0
 for idx, samp in enumerate(x_train):
@@ -119,3 +119,16 @@ for idx, samp in enumerate(x_test):
 mse = mse / len(x_test)
 print(f'test mse is {mse}')
 
+#plotting old vs new regressor, line in green in new regression line using new hyperparameters
+xx = np.arange(0, 100, 0.1).reshape((1000,1))
+yy2 = []
+
+for samp in xx:
+  yy2.append(predict(alphas, x_train, samp, sigma=best_sigma))
+
+plt.scatter(x_train, y_train, color='blue', s=2, label='train')
+plt.scatter(x_test, y_test, color='red', s=2, label='test')
+plt.plot(xx, yy, color='black', label='origin plot')
+plt.plot(xx, yy2, color='green', label='tuned plot')
+plt.legend()
+plt.show()
