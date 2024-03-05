@@ -43,3 +43,18 @@ def predict(alphas, train, test, sigma):
     for sample_index,sample in enumerate(train):
         summy+=alphas[sample_index]*kernel(sample,test,sigma)
     return summy
+'''
+#using sigma=4, plotting line:
+xx = np.arange(0, 100, 0.1).reshape((1000,1))
+yy = []
+train_kernel = prepear_kernel_matrix(x_train, sigma=4)
+alphas = get_alphas(train_kernel, y_train)
+
+for samp in xx:
+  yy.append(predict(alphas, x_train, samp, sigma=4))
+
+plt.scatter(x_train, y_train, color='blue', s=2, label='train')
+plt.scatter(x_test, y_test, color='red', s=2, label='test')
+plt.plot(xx, yy, color='black')
+plt.show()
+'''
