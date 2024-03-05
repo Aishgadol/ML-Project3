@@ -58,3 +58,16 @@ plt.scatter(x_test, y_test, color='red', s=2, label='test')
 plt.plot(xx, yy, color='black')
 plt.show()
 '''
+#printing MSE of train and test given sigma=4
+mse = 0
+for idx, samp in enumerate(x_train):
+  mse += (predict(alphas, x_train, samp, sigma=4) - y_train[idx]) ** 2
+mse = mse / len(x_train)
+print(f'train mse is {mse}')
+
+mse = 0
+for idx, samp in enumerate(x_test):
+  mse += (predict(alphas, x_train, samp, sigma=4) - y_test[idx]) ** 2
+mse = mse / len(x_test)
+print(f'test mse is {mse}')
+
